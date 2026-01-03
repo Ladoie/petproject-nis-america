@@ -6,6 +6,8 @@ test.describe("Registration - Positive", () => {
     const user = generateUser();
 
     await registerPage.register(user, { clickButton: false, fillName: true });
+
+    // await expect(registerPage.page).toHaveURL("https://store.nisamerica.com/");
   });
 
   test.describe("Registration - Negative", () => {
