@@ -9,47 +9,47 @@ test.describe("Registration - Positive", () => {
 
     // await expect(registerPage.page).toHaveURL("https://store.nisamerica.com/");
   });
+});
 
-  test.describe("Registration - Negative", () => {
-    test("Missing First Name", async ({ registerPage }) => {
-      const user = generateUser();
+test.describe("Registration - Negative", () => {
+  test("Missing First Name", async ({ registerPage }) => {
+    const user = generateUser();
 
-      await registerPage.register(user, {
-        clickButton: true,
-        fillName: false,
-      });
-
-      await expect(registerPage.page).toHaveURL(/register/);
+    await registerPage.register(user, {
+      clickButton: true,
+      fillName: false,
     });
 
-    test("Invalid email format", async ({ registerPage }) => {
-      const user = generateUser();
-      user.email = user.email.replace("@", "");
-
-      await registerPage.register(user, {
-        clickButton: true,
-        fillName: true,
-      });
-
-      await expect(registerPage.page).toHaveURL(/register/);
-    });
+    await expect(registerPage.page).toHaveURL(/register/);
   });
 
-  test.describe("Registration - Edge Cases", () => {
-    test("Password less than minimum length", async ({ registerPage }) => {
-      const user = generateUser();
-      user.password = user.password.slice(0, 4);
+  test("Invalid email format", async ({ registerPage }) => {
+    const user = generateUser();
+    user.email = user.email.replace("@", "");
 
-      await registerPage.register(user, {
-        clickButton: true,
-        fillName: true,
-      });
-
-      // await expect(
-      //   registerPage.page.getByText(
-      //     "Password is too short (minimum is 5 characters)"
-      //   )
-      // ).toBeVisible();
+    await registerPage.register(user, {
+      clickButton: true,
+      fillName: true,
     });
+
+    await expect(registerPage.page).toHaveURL(/register/);
+  });
+});
+
+test.describe("Registration - Edge Cases", () => {
+  test("Password less than minimum length", async ({ registerPage }) => {
+    const user = generateUser();
+    user.password = user.password.slice(0, 4);
+
+    await registerPage.register(user, {
+      clickButton: true,
+      fillName: true,
+    });
+
+    // await expect(
+    //   registerPage.page.getByText(
+    //     "Password is too short (minimum is 5 characters)"
+    //   )
+    // ).toBeVisible();
   });
 });
